@@ -1,6 +1,9 @@
 # PlotPulse
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
+
+![PlotPulseImage](https://github.com/DarwinS12/Plot-Pulse/assets/128423214/eab540a8-8936-4914-9f7d-bb723b72177d)
+
+
 
 ## Development server
 
