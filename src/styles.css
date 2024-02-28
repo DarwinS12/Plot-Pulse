@@ -1,0 +1,11 @@
+@import "@fontsource/protest-riot";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: "Protest Riot", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  overflow-y: scroll;
+}

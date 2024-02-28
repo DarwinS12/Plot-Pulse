@@ -1,0 +1,64 @@
+<div
+  id="booksReadedModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
+    <div class="relative bg-white p-8 rounded-lg shadow dark:bg-gray-700">
+      <h1 class="flex items-center justify-center text-4xl mb-8">
+        Reading List
+      </h1>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-9 items-center justify-center w-full"
+      >
+        @for (book of books$; track book.book.ISBN) {
+
+        <section class="relative">
+          <app-button
+            [data]="book.book.ISBN"
+            [Onclick]="deleteBookFromReadingList.bind(this)"
+            ariLabel="Remove book from reading List"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-8 h-8 md:w-10 md:h-10 text-white hover:scale-110 transition-transform"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </app-button>
+          <img
+            class="w-[180px] h-[280px] rounded-lg shadow-black shadow-md"
+            [src]="book.book.cover"
+            [alt]="book.book.title"
+          />
+        </section>
+
+        }@empty {
+        <div
+          class="text-center flex items-center justify-center flex-col col-span-3"
+        >
+          <h1 class="text-xl mb-8 text-cyan-900">
+            Your reading list is currently empty
+          </h1>
+          <img
+            src="./assets/favIcon.avif"
+            alt="Icon empty list"
+            width="120"
+            height="120"
+          />
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

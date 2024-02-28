@@ -1,0 +1,93 @@
+<header>
+  <app-filters />
+</header>
+
+<strong class="text-xl md:ml-40 text-black/70">
+  Books available:
+  {{ books$.length }}
+</strong>
+<main
+  class="grid grid-cols-1 md:grid-cols-3 mt-16 md:px-24 content-center gap-16 mb-12"
+>
+  @for (book of books$ ; track book.book.ISBN) {
+
+  <article
+    class="mx-16 p-6 md:py-12 md:px-24 flex flex-col justify-center rounded-lg backdrop-blur-sm bg-black/5 shadow-lg shadow-black/30"
+  >
+    <section class="w-fit relative">
+      <div class="flex items-center justify-center">
+        @defer (on viewport) {
+        <img
+          [ngSrc]="book.book.cover"
+          width="330"
+          height="490"
+          [alt]="book.book.title"
+          class="rounded absolute -z-10 blur-xl"
+          priority="high"
+        />
+        <img
+          [ngSrc]="book.book.cover"
+          width="305"
+          height="465"
+          [alt]="book.book.title"
+          class="rounded relative"
+          priority="high"
+        />
+        }@placeholder {
+        <h1>Loading...</h1>
+        }
+      </div>
+      @if(book.book.isInReadingList === false){
+      <app-button
+        [data]="book"
+        [Onclick]="addToReadingPending.bind(this)"
+        ariLabel="Add book to reading List"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-8 h-8 md:w-10 md:h-10 text-white hover:scale-110 transition-transform"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+      </app-button>
+
+      }@else {
+      <app-button
+        [Onclick]="deleteBookFromReadingList.bind(this)"
+        [data]="book.book.ISBN"
+        ariLabel="Remove book from reading List"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-8 h-8 md:w-10 md:h-10 text-white hover:scale-110 transition-transform"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          /></svg
+      ></app-button>
+      }
+    </section>
+
+    <h1 class="mt-4 text-xl">{{ book.book.title }}</h1>
+    <p class="text-balance mt-2 text-sm text-black/80">
+      {{ book.book.synopsis }}
+    </p>
+    <span class="absolute mt-0 md:mt-4 text-black/60 right-2 bottom-2">{{
+      book.book.author?.name
+    }}</span>
+  </article>
+  }
+</main>
